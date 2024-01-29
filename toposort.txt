@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define pb emplace_back
+bool vis[10000];
+int in[10000];
+int low[1000];
+int timer;
+int node,edge;
+vector<int>v[10000];
+vector<int>res;
+#define rep(i,n) for(int i=1;i<=n;i++)
+bool dfs(int node,int par)
+{
+    queue<int>q;
+    vis[node]=1;
+    rep(i,node)
+    if(in[i]==0)
+        q.push(i);
+    while(!q.empty())
+    {
+        int cur=q.front();
+        res.push_back(cur);
+        q.pop();
+        for(auto child:v[cur])
+        {
+              in[child]--;
+              if(vis[child]==0)
+                q.push(child);
+                
+            
+        }
+    }
+}
+int main()
+{
+    cin>>node>>edge;
+    rep(i,edge)
+    {
+        int a,b;cin>>a>>b;v[a].pb(b);
+        in[b]++;
+        }
+    
+    
+}

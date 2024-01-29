@@ -1,0 +1,33 @@
+//Tree or not
+#include<bits/stdc++.h>
+using namespace std;
+#define rep(i,n) for(int i=1;i<=n;i++)
+#define pb emplace_back
+#define endl "\n"
+vector<int>v[100001];
+bool vis[100001];
+void dfs(int x)
+{
+    vis[x]=1;
+    for(auto child :v[x])
+    {
+        if(!vis[child])
+            dfs(child);
+    }
+}
+int main()
+{
+    int node,edge,a,b;cin>>node>>edge;
+    rep(i,edge)cin>>a>>b,v[a].pb(b),v[b].pb(a);
+    int c=0;
+    rep(i,node)
+    {
+        if(!vis[i])
+            dfs(i),c++;
+    }
+    if(c==1&&edge==node-1)
+    {
+        cout<<"This is a tree"<<endl;
+    }
+    else cout<<"This is not a tree"<<endl;
+}

@@ -1,0 +1,39 @@
+//simple code of counting (connected components)
+#include<bits/stdc++.h>
+using namespace std;
+vector<int>v[100001];
+bool vis[100001];
+int dis[100001];
+void dfs(int x,int d)
+{
+    vis[x]=1;
+    dis[x]=d;
+    for(auto child:v[x])
+    {
+        if(!vis[child])
+        {
+         dfs(child,d+1);
+        }
+    }
+}
+int main()
+{
+    int node,edge,a,b;cin>>node>>edge;
+    for(int i=1;i<=edge;i++)
+    {
+        cin>>a>>b;
+        v[a].push_back(b);
+        v[b].push_back(a);
+    }
+
+    for(int i=1;i<=node;i++)
+    {
+        if(!vis[i])
+            dfs(i,0);
+    }
+    int ans=0,k=INT_MAX;
+    for(int i=1;i<=node;i++)
+    {
+        if(k>dis[i])k=dis[i];
+    }
+}

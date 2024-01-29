@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define rep(i,n) for(int i=1;i<=n;i++)
+#define pb push_back
+bool vis[1001][1001];
+char v[1001][1001];
+int n,m;
+int dx[]={1,-1,0,0};
+int dy[]={0,0,1,-1};
+bool valid(int x,int y)
+{
+    if(x<1||x>n||y<1||y>m)
+        return false;
+    if(vis[x][y]==1||v[x][y]=='#')
+        return false;
+    return true;
+}
+void dfs(int x,int y)
+{
+    vis[x][y]=1;
+    for(int i=0;i<4;i++)
+    {
+        if(valid(x+dx[i],y+dy[i]))
+            dfs(x+dx[i],y+dy[i]);
+    }
+}
+int main()
+{
+    cin>>n>>m;
+    rep(i,n)
+    {
+    rep(j,m)
+    {
+    cin>>v[i][j];
+    }
+    }
+    int c=0;
+    rep(i,n)
+    {
+        rep(j,m)
+      {
+          if(v[i][j]=='.'&&vis[i][j]==0)
+          dfs(i,j),c++;
+      }
+
+    }
+    cout<<c<<endl;
+}

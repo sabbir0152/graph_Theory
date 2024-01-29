@@ -1,0 +1,34 @@
+//Longest Path on a tree(diameter of tree)
+//https://www.spoj.com/problems/PT07Z/
+#include<bits/stdc++.h>
+using namespace std;
+#define rep(i,n) for(int i=1;i<=n;i++)
+#define mod 1000000007
+#define endl "\n"
+#define pb emplace_back
+vector<int>v[100001];
+bool vis[100001];
+int maxd,maxn;
+void dfs(int x,int d)
+{
+    vis[x]=1;
+    if(maxd<d)maxd=d,maxn=x;
+        for(auto child:v[x])
+        {
+        if(!vis[child])
+        dfs(child,d+1);
+        }
+}
+int main()
+{
+    int n;cin>>n;
+    int a,b;
+    rep(i,n-1)cin>>a>>b,v[a].pb(b),v[b].pb(a);
+    maxd=INT_MIN;
+    dfs(1,0);
+    rep(i,n)vis[i]=0;
+    maxd=INT_MIN;
+    dfs(maxn,0);
+    cout<<maxd<<endl;
+}
+ 

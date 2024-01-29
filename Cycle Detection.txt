@@ -1,0 +1,45 @@
+//The cycle Detection
+#include<bits/stdc++.h>
+using namespace std;
+vector<int>v[100001];
+#define pb emplace_back
+#define rep(i,n) for(int i=1;i<=n;i++)
+bool vis[100001];
+bool dfs(int x,int par)
+{
+    vis[x]=1;
+    for(auto child:v[x])
+    {
+        if(!vis[child])
+        {
+            if(dfs(child,x)==true)
+                return true;
+        }
+        else
+            if(child!=par)
+            return true;
+    }
+    return false;
+}
+int main()
+{
+    int node,edge,a,b;
+    cin>>node>>edge;
+    rep(i,node)v[i].clear(),vis[i]=0;
+    rep(i,edge)cin>>a>>b,v[a].pb(b),v[b].pb(a);
+   bool flag=false;
+   rep(i,node)
+   {
+       if(!vis[i])
+       {
+           bool k=dfs(i,0);
+           if(k==true)
+            flag=true;
+       }
+   }
+   if(flag==true)
+   {
+       cout<<"This is not cycle"<<endl;
+   }
+   else cout<<"This is a cycle"<<endl;
+}

@@ -1,0 +1,58 @@
+ #include<bits/stdc++.h>
+using namespace std;
+#define pb push_back
+#define rep(i,n) for(int i=1;i<=n;i++)
+bool vis[10001];
+int in[10001],low[10001];
+int timer;
+vector<int>v[10001];
+set<int>s;
+void dfs(int node,int par)
+{
+    vis[node]=1;
+    in[node]=low[node]=timer++;
+    int child_cnt=0;
+    for(auto child:v[node])
+    {
+        if(child==par)continue;
+        if(vis[child]==1)
+        {
+            low[node]=min(low[node],in[child]);
+        }
+        else
+            {
+            dfs(child,node);
+            child_cnt++;
+           low[node]=min(low[node],low[child]);
+           if(low[child]>=in[node]&&par!=-1)
+           {
+               s.insert(node);
+           }
+        }
+    }
+    if(child_cnt>1&&par==-1)
+    {
+        s.insert(node);
+    }
+}
+int main()
+{
+    int n,m,a,b;
+    while(1)
+    {
+        cin>>n>>m;
+        if(n==0&&m==0)break;
+        rep(i,n)vis[i]=0,v[i].clear();
+        s.clear();
+        rep(i,m)cin>>a>>b,v[a].pb(b),v[b].pb(a);
+        timer=1;
+        rep(i,n)
+        {
+            if(!vis[i])
+            {
+                dfs(i,-1);
+            }
+        }
+        cout<<s.size()<<endl;
+    }
+}

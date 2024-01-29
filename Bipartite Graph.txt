@@ -1,0 +1,49 @@
+//Simple Code Of Bipartite Graph
+#include<bits/stdc++.h>
+using namespace std;
+vector<int>v[100001];
+bool vis[100001];
+int color[100001];
+bool dfs(int x,int c)
+{
+    vis[x]=1;
+    color[x]=c;
+    for(auto child:v[x])
+    {
+        if(!vis[child])
+        {
+            if(dfs(child,1^c)==false)
+                 return false;
+        }
+        else
+            if(color[child]==color[x])
+            return false;
+    }
+    return true;
+
+}
+int main()
+{
+    int node,edge,a,b;cin>>node>>edge;
+    for(int i=1;i<=edge;i++)
+    {
+        v[a].push_back(b);
+        v[b].push_back(a);
+    }
+    bool flag=true;
+    for(int i=1;i<=node;i++)
+    {
+        if(!vis[i])
+        {
+            bool k=dfs(i,0);
+            if(k==false)
+                flag=false;
+        }
+    }
+    if(flag==false)
+    {
+        cout<<"This is not Bipartite Graph"<<endl;
+    }
+    else cout<<"This is Bipartite Graph"<<endl;
+
+    }

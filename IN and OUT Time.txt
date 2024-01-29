@@ -1,0 +1,13 @@
+//IN Time and Out Time
+int time=1;
+dfs(int x)
+{
+    vis[x]=1;
+    in[x]=time++;
+    for(auto child:v[x])
+    {
+        if(!vis[child])
+            dfs(child);
+    }
+    out[x]=time++;
+}

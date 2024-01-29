@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define rep(i,n) for(int i=1;i<=n;i++)
+#define mod 1000000007;
+#define  pb emplace_back
+#define endl "\n"
+#define fast ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(nullptr);
+int node,edge;
+int maxd,maxnode;
+vector<int>v[100001];
+bool vis[100001];
+int in[100001];
+int low[100001];
+int timer;
+void dfs(int node,int par)
+{
+    in[node]=low[node]=timer;
+    timer++;
+    for(auto child:v[node])
+    {
+        if(child==par)continue;
+        if(vis[child]==1)
+        {
+            low[node]=min(low[node],in[child]);
+        }
+        else{
+            dfs(child,node);
+            if(low[child]>in[node])
+                cout<<" bridge"<<endl;
+            low[node]=min(low[node],low[child]);
+        }
+    }
+}
+int main()
+{
+fast
+
+    cin>>node;
+    rep(i,node){vis[i]=0;v[i].clear();}
+    rep(i,node-1){int a,b;cin>>a>>b;v[a].pb(b),v[b].pb(a);}
+            dfs(1,-1);
+        
+}
+
+
